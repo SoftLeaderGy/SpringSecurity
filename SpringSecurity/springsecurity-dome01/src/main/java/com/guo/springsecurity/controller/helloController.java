@@ -22,4 +22,9 @@ public class helloController {
     public String login(){
         return "登录";
     }
+
+    @RequestMapping("/toError")
+    public String toError(){
+        return "登录失败";
+    }
 }
