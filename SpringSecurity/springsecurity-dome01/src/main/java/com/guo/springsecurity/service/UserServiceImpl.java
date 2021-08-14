@@ -36,6 +36,6 @@ public class UserServiceImpl implements UserDetailsService {
         // 3、返回用户对象
 
         log.info("paw : "+password);
-        return new User("admin",password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal"));
+        return new User("admin",password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,ROLE_abc"));
     }
 }

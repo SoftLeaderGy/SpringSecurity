@@ -41,6 +41,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login.html").permitAll()
                 //放行登录失败请求
                 .antMatchers("/helloController/toError").permitAll()
+                /**
+                 * 只有什么样的权限下可以放行，
+                 */
+//                // .antMatchers("/main.html")表示放行资源  ， .hasAuthority("admin")  表示有什么样的权限下可以放行
+//                // .hasAuthority("admin")可以匹配一个权限,
+//                .antMatchers("/main.html").hasAuthority("admin")
+//                // 可以匹配多个权限
+//                .antMatchers("/main.html").hasAnyAuthority("admin,ad,admin1")
+
+//                /**
+//                 * 只有什么样的ip地址下可以放行
+//                 */
+//                .antMatchers("/main.html").hasIpAddress("127.0.0.1")
+
+
+                /**
+                 * 有什么样的角色才能放行
+                 */
+                // 登录用户必须有 abc 角色才可以访问资源 角色的配置是  在 UserServiceImpl里边是 ROLE_"角色"
+                // 但是在SecurityConfig配置中不需要加上ROLE_ 因为源码里 已经给我们自拼上了
+                .antMatchers("/main.html").hasRole("adc")
                 // 所有请求都要授权
                 .anyRequest().authenticated();
 
