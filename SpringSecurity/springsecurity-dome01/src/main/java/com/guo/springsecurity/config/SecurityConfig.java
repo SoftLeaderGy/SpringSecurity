@@ -1,7 +1,9 @@
 package com.guo.springsecurity.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+    @Autowired
+    private MyAccessDeniedHandler accessDecisionHandler;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // form表单
@@ -64,6 +68,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/main.html").hasRole("adc")
                 // 所有请求都要授权
                 .anyRequest().authenticated();
+
+        /**
+         * 自定义403页面 通过创建MyAccessDeniedHandler配置类 来自定义403页面，并匹配自定义的403页面
+         */
+        http.exceptionHandling()
+                // 会去找我们创建的自定义403的配置类
+                .accessDeniedHandler(accessDecisionHandler);
 
         // 关闭防火墙
         http.csrf().disable();
