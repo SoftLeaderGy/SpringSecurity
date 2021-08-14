@@ -65,16 +65,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  */
                 // 登录用户必须有 abc 角色才可以访问资源 角色的配置是  在 UserServiceImpl里边是 ROLE_"角色"
                 // 但是在SecurityConfig配置中不需要加上ROLE_ 因为源码里 已经给我们自拼上了
-                .antMatchers("/main.html").hasRole("adc")
+//                .antMatchers("/main.html").hasRole("adc")
                 // 所有请求都要授权
                 .anyRequest().authenticated();
 
-        /**
-         * 自定义403页面 通过创建MyAccessDeniedHandler配置类 来自定义403页面，并匹配自定义的403页面
-         */
-        http.exceptionHandling()
-                // 会去找我们创建的自定义403的配置类
-                .accessDeniedHandler(accessDecisionHandler);
+//        /**
+//         * 自定义403页面 通过创建MyAccessDeniedHandler配置类 来自定义403页面，并匹配自定义的403页面
+//         */
+//        http.exceptionHandling()
+//                // 会去找我们创建的自定义403的配置类
+//                .accessDeniedHandler(accessDecisionHandler);
 
         // 关闭防火墙
         http.csrf().disable();
